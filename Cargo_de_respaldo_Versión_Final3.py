@@ -7,6 +7,7 @@ from sklearn.utils import resample
 
 # Definir número de iteraciones
 num_iteraciones = 400
+
 diferencias = []
 Pbase = []
 
@@ -441,13 +442,13 @@ df_diferencias['h_r'] = np.random.uniform(1.32, 4, size=len(df_diferencias))
 df_diferencias['%_pen'] = np.random.uniform(0.0111, 0.30, size=len(df_diferencias))
 df_diferencias['Dt'] = [151.6]* len(df_diferencias)
 df_diferencias['PIS'] = abs((df_diferencias['Potencia_AG_FV_instalada']-8935))/8935
-df_diferencias['alpha'] = np.random.uniform(0.32, 0.35, size=len(df_diferencias))
+df_diferencias['alpha'] = np.random.uniform(0.30, 0.31, size=len(df_diferencias))
 
 # Cálculo de los casos
 df_diferencias['Caso Base'] = df_diferencias['Consumo total del sistema (MWh*día)']*df_diferencias['Dt']*1000
 df_diferencias['Caso 1 - Sin Cargo de respaldo'] = (df_diferencias['Consumo total del sistema (MWh*día)']-df_diferencias['Autogeneración FV total (MWh*día)'])*df_diferencias['Dt']*1000
 df_diferencias['Caso 2 - CRESP'] = ((df_diferencias['Consumo total del sistema (MWh*día)']-df_diferencias['Autogeneración FV total (MWh*día)'])*df_diferencias['Dt']*1000)+(df_diferencias['Potencia_AG_FV_instalada']*df_diferencias['h']*df_diferencias['Dt']*1000)
-df_diferencias['Caso 3 - Cargo Respaldo nuevo'] = ((df_diferencias['Consumo total del sistema (MWh*día)']-df_diferencias['Autogeneración FV total (MWh*día)'])*df_diferencias['Dt']*1000)+(df_diferencias['Potencia_AG_FV_instalada']*df_diferencias['h_r']*df_diferencias['PIS']*1*(df_diferencias['alpha']*df_diferencias['Dt']*1000))+(df_diferencias['%_pen']*(df_diferencias['Potencia_AG_FV_instalada']*df_diferencias['h_inc']*(df_diferencias['alpha']*df_diferencias['Dt']*1000)))
+df_diferencias['Caso 3 - Cargo Respaldo nuevo'] = ((df_diferencias['Consumo total del sistema (MWh*día)']-df_diferencias['Autogeneración FV total (MWh*día)'])*df_diferencias['Dt']*1000)+(df_diferencias['Potencia_AG_FV_instalada']*df_diferencias['h_r']*1*(df_diferencias['alpha']*df_diferencias['Dt']*1000))+(df_diferencias['%_pen']*(df_diferencias['Potencia_AG_FV_instalada']*df_diferencias['h_inc']*(df_diferencias['alpha']*df_diferencias['Dt']*1000)))
 
 df_diferencias.to_excel("Analisis de casos.xlsx", sheet_name="Casos", index=False)
 
